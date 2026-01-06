@@ -7,7 +7,7 @@ on:
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
-    environment: 
+    environment:
       name: production
     permissions:
       contents: write
@@ -18,16 +18,30 @@ jobs:
           repositories: 1000
           retries: 10
           repositories_affiliations: owner, collaborator
-          base: ""
-          config_order: github.achievements, github.reactions
+          base: header, activity, community, repositories
+          config_order: base.header, isocalendar, languages, habits, reactions
           template: classic
           config_timezone: Europe/Paris
-          
-          plugin_achievements: true
-          plugin_achievements_display: detailed
-          plugin_achievements_secrets: yes
-          plugin_achievements_threshold: B
-          
+
+          # Isometric commit calendar
+          plugin_isocalendar: true
+          plugin_isocalendar_duration: half-year
+
+          # Most used languages
+          plugin_languages: true
+          plugin_languages_sections: most-used
+          plugin_languages_colors: github
+          plugin_languages_limit: 8
+          plugin_languages_indepth: true
+
+          # Coding habits
+          plugin_habits: true
+          plugin_habits_from: 200
+          plugin_habits_days: 14
+          plugin_habits_charts: true
+          plugin_habits_trim: true
+
+          # Reactions
           plugin_reactions: true
           plugin_reactions_limit: 1000
           plugin_reactions_display: absolute
